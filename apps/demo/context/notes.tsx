@@ -69,6 +69,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const useNotes = () => {
+  console.log('useNotes')
   const context = useContext(NotesContext);
   if (!context) {
     throw new Error("useNotes must be used within a NotesProvider");

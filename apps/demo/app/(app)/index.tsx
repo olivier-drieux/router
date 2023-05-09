@@ -13,7 +13,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNotes } from "../../context/notes";
 
 export default function App() {
+  console.debug('---- App render ----');
   const { notes } = useNotes();
+
+  // useEffect to fake an API call. To demonstrate that the component renders normally.
+  React.useEffect(() => {
+    console.log('Simulating API call...')
+  }, [])
 
   if (!notes) {
     return (

@@ -15,6 +15,7 @@ function useProtectedRoute(user) {
   const nav = useNavigation();
   React.useEffect(() => {
     if (user === undefined) {
+      console.log('user is undefined')
       return;
     }
 
@@ -23,6 +24,7 @@ function useProtectedRoute(user) {
       !user &&
       rootSegment !== "(auth)"
     ) {
+      console.log('User is null and not on sign-in page, redirecting to sign-in')
       // nav.dispatch(
       //   StackActions.replace("(auth)/sign-in", {
       //     // user: 'jane',
@@ -31,6 +33,7 @@ function useProtectedRoute(user) {
       // Redirect to the sign-in page.
       router.replace("/sign-in");
     } else if (user && rootSegment !== "(app)") {
+      console.log('User is defined and not on (app) page, redirecting to /')
       // Redirect away from the sign-in page.
       router.replace("/");
       // router.replace("/compose");
@@ -40,12 +43,13 @@ function useProtectedRoute(user) {
       //   })
       // );
     }
+    console.log('end of useProtectedRoute')
   }, [user, rootSegment]);
 }
 
 export function Provider(props) {
   const { getItem, setItem, removeItem } = useAsyncStorage("USER");
-  const [user, setAuth] = React.useState(undefined);
+  const [user, setAuth] = React.useState(null);
 
   React.useEffect(() => {
     getItem().then((json) => {
